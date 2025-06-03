@@ -5,7 +5,7 @@ import { useState } from 'react';
 interface Expense {
   id: string;
   title: string;
-  amount: number;
+  amount: string;
   category: string;
   date: string;
   description: string;

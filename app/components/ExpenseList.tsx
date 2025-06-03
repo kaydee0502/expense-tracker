@@ -3,7 +3,7 @@
 interface Expense {
   id: string;
   title: string;
-  amount: number;
+  amount: string;
   category: string;
   date: string;
   description: string;
@@ -15,7 +15,7 @@ interface ExpenseListProps {
 }
 
 export default function ExpenseList({ expenses, onDeleteExpense }: ExpenseListProps) {
-  const totalAmount = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+  const totalAmount = expenses.reduce((sum, expense) => sum + parseInt(expense.amount), 0);
 
   if (expenses.length === 0) {
     return (
@@ -32,7 +32,7 @@ export default function ExpenseList({ expenses, onDeleteExpense }: ExpenseListPr
         <h2 className="text-2xl font-semibold text-gray-800">Your Expenses</h2>
         <div className="text-right">
           <p className="text-sm text-gray-600">Total Amount</p>
-          <p className="text-2xl font-bold text-blue-600">${totalAmount.toFixed(2)}</p>
+          <p className="text-2xl font-bold text-blue-600">${totalAmount}</p>
         </div>
       </div>
 
@@ -43,7 +43,7 @@ export default function ExpenseList({ expenses, onDeleteExpense }: ExpenseListPr
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-lg font-medium text-gray-900">{expense.title}</h3>
-                  <span className="text-xl font-semibold text-green-600">${expense.amount.toFixed(2)}</span>
+                  <span className="text-xl font-semibold text-green-600">${expense.amount}</span>
                 </div>
                 
                 <div className="flex items-center space-x-4 text-sm text-gray-600 mb-2">

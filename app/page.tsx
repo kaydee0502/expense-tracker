@@ -1,14 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import ExpenseForm from './components/ExpenseForm';
 import ExpenseList from './components/ExpenseList';
+import { ExpenseData } from './interfaces/expense';
+import { createExpense, getExpenses } from '@/utils/api';
 
 interface Expense {
   id: string;
   title: string;
-  amount: number;
+  amount: string;
   category: string;
   date: string;
   description: string;
@@ -17,13 +19,34 @@ interface Expense {
 export default function Home() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
 
-  const handleAddExpense = (expenseData: Omit<Expense, 'id'>) => {
-    const newExpense: Expense = {
-      ...expenseData,
-      id: Date.now().toString() + Math.random().toString(36).substr(2, 9)
+  useEffect(() => {
+    const loadExpenses = async () => {
+      try {
+        const expenses = await getExpenses();
+        setExpenses(expenses);
+      } catch (error) {
+        console.error('Failed to load expenses:', error);
+      }
     };
-    
-    setExpenses(prev => [newExpense, ...prev]);
+
+    loadExpenses();
+  }, []);
+
+  const handleAddExpense = async (expenseData: Omit<Expense, 'id'>) => {
+    try {
+      const apiExpenseData: ExpenseData = {
+        title: expenseData.title,
+        amount: expenseData.amount,
+        category: expenseData.category,
+        date: expenseData.date,
+        desc: expenseData.description
+      };
+      
+      const newExpense = await createExpense(apiExpenseData);
+      setExpenses(prev => [newExpense, ...prev]);
+    } catch (error) {
+      console.error('Failed to create expense:', error);
+    }
   };
 
   const handleDeleteExpense = (id: string) => {
