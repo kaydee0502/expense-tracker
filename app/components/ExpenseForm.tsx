@@ -53,7 +53,7 @@ export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
 
     const expense = {
       title: formData.title,
-      amount: parseFloat(formData.amount),
+      amount: formData.amount,
       category: formData.category,
       date: formData.date,
       description: formData.description
