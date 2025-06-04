@@ -1,4 +1,4 @@
-import { CategorySummary } from '@/app/types/expense';
+import { CategorySummary } from '../../types/expense';
 
 interface CategoryListProps {
   categorySummary: CategorySummary[];

@@ -1,4 +1,4 @@
-import { Expense } from '@/app/types/expense';
+import { Expense } from '../../types/expense';
 
 interface RecentExpensesTableProps {
   expenses: Expense[];
