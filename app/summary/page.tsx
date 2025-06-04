@@ -11,7 +11,7 @@ export default function SummaryPage() {
 
   if (isLoading) {
     return (
-      <div className="h-screen bg-gray-50 py-32">
+      <div className="h-screen bg-gray-50 py-32 overflow-y-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center items-center h-64">
             <div className="text-lg text-gray-600">Loading expenses...</div>
@@ -23,7 +23,7 @@ export default function SummaryPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 py-32">
+      <div className="h-screen bg-gray-50 py-32 overflow-y-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center items-center h-64">
             <div className="text-lg text-red-600">Error loading expenses. Please try again.</div>
@@ -34,7 +34,7 @@ export default function SummaryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-32">
+    <div className="h-screen bg-gray-50 py-32 overflow-y-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Expense Summary</h1>

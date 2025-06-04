@@ -1,17 +1,17 @@
 'use client';
 
 interface Expense {
-  id: string;
+  id: number;
   title: string;
   amount: string;
   category: string;
   date: string;
-  description: string;
+  desc: string;
 }
 
 interface ExpenseListProps {
   expenses: Expense[];
-  onDeleteExpense: (id: string) => void;
+  onDeleteExpense: (id: number) => void;
 }
 
 export default function ExpenseList({ expenses, onDeleteExpense }: ExpenseListProps) {
@@ -53,8 +53,8 @@ export default function ExpenseList({ expenses, onDeleteExpense }: ExpenseListPr
                   <span>{new Date(expense.date).toLocaleDateString()}</span>
                 </div>
                 
-                {expense.description && (
-                  <p className="text-gray-700 text-sm">{expense.description}</p>
+                {expense.desc && (
+                  <p className="text-gray-700 text-sm">{expense.desc}</p>
                 )}
               </div>
               

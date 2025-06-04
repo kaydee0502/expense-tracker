@@ -61,8 +61,6 @@ export default function ExpenseForm() {
         date: new Date().toISOString().split('T')[0],
         desc: ''
       });
-
-      alert('Expense added successfully!');
     } catch (error) {
       console.error('Failed to create expense:', error);
       alert('Failed to add expense. Please try again.');
