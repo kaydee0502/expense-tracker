@@ -7,10 +7,34 @@ import CategoryDistribution from '../components/summary/CategoryDistribution';
 import RecentExpensesTable from '../components/summary/RecentExpensesTable';
 
 export default function SummaryPage() {
-  const { expenses, categorySummary, totalExpenses, totalAmount } = useSummaryData();
+  const { expenses, categorySummary, totalExpenses, totalAmount, isLoading, error } = useSummaryData();
+
+  if (isLoading) {
+    return (
+      <div className="h-screen bg-gray-50 py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-lg text-gray-600">Loading expenses...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-lg text-red-600">Error loading expenses. Please try again.</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="h-screen bg-gray-50 py-32">
+    <div className="min-h-screen bg-gray-50 py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Expense Summary</h1>

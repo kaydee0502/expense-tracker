@@ -1,10 +1,12 @@
 export interface Expense {
-  id: string;
+  id: number;
   title: string;
   amount: string;
   category: string;
   date: string;
-  description: string;
+  desc: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface CategorySummary {
@@ -12,4 +14,13 @@ export interface CategorySummary {
   count: number;
   total: number;
   percentage: number;
+}
+
+// For form submissions (without server-generated fields)
+export interface CreateExpenseRequest {
+  title: string;
+  amount: string;
+  category: string;
+  date: string;
+  desc: string;
 }

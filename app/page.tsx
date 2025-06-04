@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Header from './components/Header';
 import ExpenseForm from './components/ExpenseForm';
+import { useSummaryData } from './hooks/useSummaryData';
+import Header from './components/Header';
 import ExpenseList from './components/ExpenseList';
 import { ExpenseData } from './interfaces/expense';
 import { createExpense, getExpenses } from '@/utils/api';
+import { useEffect, useState } from 'react';
 
 interface Expense {
   id: string;

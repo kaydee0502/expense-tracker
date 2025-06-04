@@ -1,27 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import { useCreateExpenseMutation } from '../store/api/expenseApi';
+import { CreateExpenseRequest } from '../types/expense';
 
-interface Expense {
-  id: string;
-  title: string;
-  amount: string;
-  category: string;
-  date: string;
-  description: string;
-}
-
-interface ExpenseFormProps {
-  onAddExpense: (expense: Omit<Expense, 'id'>) => void;
-}
-
-export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
+export default function ExpenseForm() {
+  const [createExpense, { isLoading }] = useCreateExpenseMutation();
+  
   const [formData, setFormData] = useState({
     title: '',
     amount: '',
     category: '',
     date: new Date().toISOString().split('T')[0],
-    description: ''
+    desc: ''
   });
 
   const categories = [
@@ -43,7 +34,7 @@ export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.title || !formData.amount || !formData.category) {
@@ -51,24 +42,31 @@ export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
       return;
     }
 
-    const expense = {
-      title: formData.title,
-      amount: formData.amount,
-      category: formData.category,
-      date: formData.date,
-      description: formData.description
-    };
+    try {
+      const expenseData: CreateExpenseRequest = {
+        title: formData.title,
+        amount: formData.amount,
+        category: formData.category,
+        date: formData.date,
+        desc: formData.desc
+      };
 
-    onAddExpense(expense);
-    
-    // Reset form
-    setFormData({
-      title: '',
-      amount: '',
-      category: '',
-      date: new Date().toISOString().split('T')[0],
-      description: ''
-    });
+      await createExpense(expenseData).unwrap();
+      
+      // Reset form
+      setFormData({
+        title: '',
+        amount: '',
+        category: '',
+        date: new Date().toISOString().split('T')[0],
+        desc: ''
+      });
+
+      alert('Expense added successfully!');
+    } catch (error) {
+      console.error('Failed to create expense:', error);
+      alert('Failed to add expense. Please try again.');
+    }
   };
 
   return (
@@ -90,6 +88,7 @@ export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter expense title"
               required
+              disabled={isLoading}
             />
           </div>
 
@@ -108,6 +107,7 @@ export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.00"
               required
+              disabled={isLoading}
             />
           </div>
         </div>
@@ -124,6 +124,7 @@ export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
               onChange={handleInputChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               required
+              disabled={isLoading}
             >
               <option value="">Select a category</option>
               {categories.map(category => (
@@ -145,30 +146,33 @@ export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
               value={formData.date}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              disabled={isLoading}
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="desc" className="block text-sm font-medium text-gray-700 mb-1">
             Description
           </label>
           <textarea
-            id="description"
-            name="description"
-            value={formData.description}
+            id="desc"
+            name="desc"
+            value={formData.desc}
             onChange={handleInputChange}
             rows={3}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="Optional description"
+            disabled={isLoading}
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200"
+          disabled={isLoading}
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Add Expense
+          {isLoading ? 'Adding...' : 'Add Expense'}
         </button>
       </form>
     </div>
