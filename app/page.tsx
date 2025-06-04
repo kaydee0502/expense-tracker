@@ -54,18 +54,20 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          <ExpenseForm onAddExpense={handleAddExpense} />
-          <ExpenseList 
-            expenses={expenses} 
-            onDeleteExpense={handleDeleteExpense}
-          />
+    <div className="h-screen bg-gray-50 py-32">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-600 mt-2">Manage your expenses</p>
         </div>
-      </main>
+        
+        <ExpenseForm onAddExpense={handleAddExpense} />
+        
+        <ExpenseList 
+          expenses={expenses} 
+          onDeleteExpense={handleDeleteExpense}
+        />
+      </div>
     </div>
   );
 }
