@@ -2,13 +2,25 @@
 import ExpenseForm from './components/ExpenseForm';
 import ExpenseList from './components/ExpenseList';
 import { useSummaryData } from './hooks/useSummaryData';
+import { useDeleteExpenseMutation } from './store/api/expenseApi';
 
 
 export default function Home() {
-  const { expenses, categorySummary, totalExpenses, totalAmount, isLoading, error } = useSummaryData();
+  const { expenses, isLoading, error } = useSummaryData();
+  const [deleteExpense, { isLoading: isDeleting }] = useDeleteExpenseMutation();
 
-  const handleDeleteExpense = (id: number) => {
-    // Implement your delete logic here
+  const handleDeleteExpense = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this expense?')) {
+      return;
+    }
+
+    try {
+      await deleteExpense(id).unwrap();
+      alert('Expense deleted successfully!');
+    } catch (error) {
+      console.error('Failed to delete expense:', error);
+      alert('Failed to delete expense. Please try again.');
+    }
   };
 
   return (
