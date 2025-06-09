@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💰 Expense Tracker
 
-## Getting Started
+A modern expense tracking application built with Next.js, TypeScript, and Redux Toolkit.
 
-First, run the development server:
+![CI](https://github.com/kaydee0502/expense-tracker/workflows/CI/badge.svg)
+
+## 🚀 Setup
+
+### Prerequisites
+- Node.js 18+
+- npm
+
+### Installation
+
+1. **Clone & Install**
+   ```bash
+   git clone https://github.com/kaydee0502/expense-tracker.git
+   cd expense-tracker
+   npm install
+   ```
+
+2. **Environment Variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   ```env
+   NEXT_PUBLIC_API_BASE_URL=http://localhost:8001/api
+   V1_NEXT_PUBLIC_EXPENSE_API_ENDPOINT=/v1/expenses
+   V1_NEXT_PUBLIC_USER_API_ENDPOINT=/v1/users
+   V1_NEXT_PUBLIC_AUTH_API_ENDPOINT=/v1/auth
+   ```
+
+3. **Run**
+   ```bash
+   npm run dev
+   ```
+   
+   Open [http://localhost:3000](http://localhost:3000)
+
+## 🧪 Testing
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm test                    # Run tests
+npm run test:coverage      # With coverage
+npm run build             # Build for production
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
+- **State**: Redux Toolkit + RTK Query
+- **Testing**: Jest + React Testing Library
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Structure
 
-## Learn More
+```
+app/
+├── components/           # UI components
+├── store/api/           # API slices
+└── types/               # TypeScript types
+src/config/              # API configuration
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Vercel**: Connect repo → Set env vars → Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Docker**:
+```bash
+docker build -t expense-tracker .
+docker run -p 3000:3000 expense-tracker
+```
 
-## Deploy on Vercel
+## 🤝 Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork repo
+2. Create feature branch
+3. Add tests
+4. Submit PR
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 License
+
+MIT
