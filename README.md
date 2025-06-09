@@ -9,6 +9,7 @@ A modern expense tracking application built with Next.js, TypeScript, and Redux 
 ### Prerequisites
 - Node.js 18+
 - npm
+- Backend Setup: https://github.com/kaydee0502/expense-tracker-backend
 
 ### Installation
 
@@ -65,12 +66,6 @@ src/config/              # API configuration
 ## 🚀 Deploy
 
 **Vercel**: Connect repo → Set env vars → Deploy
-
-**Docker**:
-```bash
-docker build -t expense-tracker .
-docker run -p 3000:3000 expense-tracker
-```
 
 ## 🤝 Contributing
 
